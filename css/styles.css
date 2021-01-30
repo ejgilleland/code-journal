@@ -2,16 +2,13 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+h1,
+h2 {
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.05rem;
+}
+
 header {
   color: whitesmoke;
   background-color: #5a2328;
-  font-family: 'Inter', sans-serif;
-  letter-spacing: 0.05rem;
-  margin: 0;
-}
-
-header > div {
-  max-width: 575px;
-  margin: 0 auto;
-  padding: 0.5rem 0;
 }
