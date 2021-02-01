@@ -12,3 +12,22 @@ header {
   color: whitesmoke;
   background-color: #5a2328;
 }
+
+.image-container > img {
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  border: 3px solid black;
+}
+
+textarea,
+input {
+  width: 100%;
+  border: 3px solid black;
+  resize: none;
+  font: inherit;
+}
+
+input {
+  height: 2.5rem;
+}

@@ -41,4 +41,8 @@ header > div {
   header > div {
     max-width: 900px;
   }
+
+  .image-container > img {
+    height: 364px;
+  }
 }
