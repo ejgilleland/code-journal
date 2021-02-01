@@ -20,6 +20,23 @@ header {
   border: 3px solid black;
 }
 
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 1.5rem 0;
+}
+
+.button-container > button {
+  font: inherit;
+  padding: 0.5rem 1.5rem;
+  border: 3px solid black;
+  box-shadow: 3px 3px 2px black;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
 textarea,
 input {
   width: 100%;
