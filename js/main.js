@@ -11,6 +11,7 @@ $profileForm.addEventListener('submit', function (event) {
   for (const property in data.profile) {
     data.profile[property] = $profileForm.elements[property].value;
   }
+  localStorage.setItem('data-profile', JSON.stringify(data.profile));
   $profileForm.reset();
   document.querySelector('img').setAttribute('src', './images/placeholder-image-square.jpg');
 });
