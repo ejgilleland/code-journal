@@ -1,4 +1,5 @@
 var $profileForm = document.getElementById('profile');
+var $avatarImg = document.querySelector('img');
 
 $profileForm.addEventListener('input', function (event) {
   if (event.target.id === 'avatar') {
@@ -13,5 +14,5 @@ $profileForm.addEventListener('submit', function (event) {
   }
   localStorage.setItem('data-profile', JSON.stringify(data.profile));
   $profileForm.reset();
-  document.querySelector('img').setAttribute('src', './images/placeholder-image-square.jpg');
+  $avatarImg.setAttribute('src', './images/placeholder-image-square.jpg');
 });
