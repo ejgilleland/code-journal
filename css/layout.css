@@ -8,6 +8,12 @@
   padding: 0 1.5rem;
 }
 
+header > div {
+  max-width: 575px;
+  margin: 0 auto;
+  padding: 0.5rem 1.5rem;
+}
+
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -30,5 +36,14 @@
 
   .column-half {
     width: 50%;
+  }
+
+  header > div {
+    max-width: 900px;
+  }
+
+  .image-container > img {
+    height: 364px;
+    max-width: 364px;
   }
 }
