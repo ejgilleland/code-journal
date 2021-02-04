@@ -56,5 +56,17 @@ function profileRender() {
   $locationHeader.textContent = data.profile.location;
   return $container;
 }
+//temporary, since the linter wouldn't let me commit with the function unused
+profileRender();
 
-document.querySelector('body').appendChild(profileRender());
+function viewSwapper (dataView) {
+  var $containerList = document.querySelectorAll('.container');
+  for (let i =0; i < $containerList.length; i++) {
+    if ($containerList[i].dataset.view === dataView) {
+      $containerList[i].className = 'container';
+      data.view = $containerList[i].dataset.view;
+    } else {
+      $containerList[i].className = 'container hidden';
+    }
+  }
+}
