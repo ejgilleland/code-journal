@@ -12,23 +12,22 @@ $profileForm.addEventListener('submit', function (event) {
   for (const property in data.profile) {
     data.profile[property] = $profileForm.elements[property].value;
   }
+  viewSwapper('view-profile');
   localStorage.setItem('data-profile', JSON.stringify(data.profile));
   $profileForm.reset();
   $avatarImg.setAttribute('src', './images/placeholder-image-square.jpg');
 });
 
-function profileRender() {
-  var $container = document.createElement('div');
-  $container.className = 'container';
-  $container.setAttribute('data-view', 'view-profile');
+function profileRender(dataProfile) {
+  var $mainDiv = document.createElement('div');
   var $header = document.createElement('h1');
-  $header.textContent = data.profile.fullName;
+  $header.textContent = dataProfile.fullName;
   var $row = document.createElement('div');
   $row.className = 'row';
   var $imgContainer = document.createElement('div');
   $imgContainer.className = 'column-half image-container';
   var $newAvatar = document.createElement('img');
-  $newAvatar.setAttribute('src', data.profile.avatarUrl);
+  $newAvatar.setAttribute('src', dataProfile.avatarUrl);
   var $textContainer = document.createElement('div');
   $textContainer.className = 'column-half';
   var $usernameHeader = document.createElement('h4');
@@ -40,33 +39,33 @@ function profileRender() {
   var $locationIconSpan = document.createElement('span');
   $locationIconSpan.className = 'icon';
   var $locationIcon = document.createElement('i');
-  $locationIcon.className = 'fas fa-map=marker-alt';
+  $locationIcon.className = 'fas fa-map-marker-alt';
   var $bio = document.createElement('p');
-  $bio.textContent = data.profile.bio;
+  $bio.textContent = dataProfile.bio;
 
-  $container.append($header, $row);
+  $mainDiv.append($header, $row);
   $row.append($imgContainer, $textContainer);
   $imgContainer.appendChild($newAvatar);
   $textContainer.append($usernameHeader, $locationHeader, $bio);
-  $usernameHeader.appendChild($personIconSpan);
+  $usernameHeader.append($personIconSpan, dataProfile.username);
   $personIconSpan.appendChild($personIcon);
-  $usernameHeader.textContent = data.profile.username;
-  $locationHeader.appendChild($locationIconSpan);
+  $locationHeader.append($locationIconSpan, dataProfile.location);
   $locationIconSpan.appendChild($locationIcon);
-  $locationHeader.textContent = data.profile.location;
-  return $container;
+  return $mainDiv;
 }
-//temporary, since the linter wouldn't let me commit with the function unused
-profileRender();
 
-function viewSwapper (dataView) {
+function viewSwapper(dataView) {
   var $containerList = document.querySelectorAll('.container');
-  for (let i =0; i < $containerList.length; i++) {
+  for (let i = 0; i < $containerList.length; i++) {
     if ($containerList[i].dataset.view === dataView) {
       $containerList[i].className = 'container';
       data.view = $containerList[i].dataset.view;
     } else {
       $containerList[i].className = 'container hidden';
+    }
+    if ($containerList[i].dataset.view === 'view-profile') {
+      $containerList[i].innerHTML = '';
+      $containerList[i].appendChild((profileRender(data.profile)));
     }
   }
 }
