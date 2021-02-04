@@ -1,5 +1,6 @@
 var $profileForm = document.getElementById('profile');
 var $avatarImg = document.querySelector('img');
+var $containerList = document.querySelectorAll('.container');
 
 $profileForm.addEventListener('input', function (event) {
   if (event.target.id === 'avatar') {
@@ -55,7 +56,6 @@ function profileRender(dataProfile) {
 }
 
 function viewSwapper(dataView) {
-  var $containerList = document.querySelectorAll('.container');
   for (let i = 0; i < $containerList.length; i++) {
     if ($containerList[i].dataset.view === dataView) {
       $containerList[i].className = 'container';
@@ -69,3 +69,22 @@ function viewSwapper(dataView) {
     }
   }
 }
+
+document.addEventListener('DOMContentLoaded', function (event) {
+  if (localStorage['data-profile']) {
+    const localProfileJSON = localStorage.getItem('data-profile');
+    const localProfile = JSON.parse(localProfileJSON);
+    for (var property in localProfile) {
+      data.profile[property] = localProfile[property];
+    }
+  }
+  if (!data.profile.username) {
+    for (let i = 0; i < $containerList.length; i++) {
+      if ($containerList[i].dataset.view === 'edit-profile') {
+        $containerList[i].className = 'container';
+      } else {
+        $containerList[i].className = 'container hidden';
+      }
+    }
+  } else { viewSwapper('view-profile'); }
+});
