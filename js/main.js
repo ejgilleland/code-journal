@@ -14,7 +14,7 @@ $profileForm.addEventListener('submit', function (event) {
     data.profile[property] = $profileForm.elements[property].value;
   }
   viewSwapper('view-profile');
-  localStorage.setItem('data-profile', JSON.stringify(data.profile));
+  localStorage.setItem('data-profile', JSON.stringify(data));
   $profileForm.reset();
   $avatarImg.setAttribute('src', './images/placeholder-image-square.jpg');
 });
@@ -72,11 +72,9 @@ function viewSwapper(dataView) {
 
 document.addEventListener('DOMContentLoaded', function (event) {
   if (localStorage['data-profile']) {
-    const localProfileJSON = localStorage.getItem('data-profile');
-    const localProfile = JSON.parse(localProfileJSON);
-    for (var property in localProfile) {
-      data.profile[property] = localProfile[property];
-    }
+    var localProfileJSON = localStorage.getItem('data-profile');
+    var localProfile = JSON.parse(localProfileJSON);
+    data = localProfile;
   }
   if (!data.profile.username) {
     for (let i = 0; i < $containerList.length; i++) {
