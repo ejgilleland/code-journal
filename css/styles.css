@@ -48,3 +48,10 @@ input {
 input {
   height: 2.5rem;
 }
+
+.icon {
+  display: inline-block;
+  width: 2.5rem;
+  vertical-align: middle;
+  font-size: 2rem;
+}
