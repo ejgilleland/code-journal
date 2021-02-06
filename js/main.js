@@ -21,7 +21,10 @@ $profileForm.addEventListener('submit', function (event) {
 
 document.addEventListener('click', function (event) {
   if (event.target.nodeName.toLowerCase() === 'a') {
-    viewSwapper(event.target.dataset.view);
+    if ((event.target.dataset.view === 'view-profile' && data.profile.username) ||
+      event.target.dataset.view === 'edit-profile') {
+      viewSwapper(event.target.dataset.view);
+    }
   }
 });
 
@@ -52,6 +55,7 @@ function profileRender(dataProfile) {
   var $editLink = document.createElement('a');
   $editLink.setAttribute('href', '#');
   $editLink.setAttribute('data-view', 'edit-profile');
+  $editLink.className = 'edit';
   $editLink.textContent = 'EDIT';
 
   $mainDiv.append($header, $row);
