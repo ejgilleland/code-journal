@@ -19,6 +19,12 @@ $profileForm.addEventListener('submit', function (event) {
   $avatarImg.setAttribute('src', './images/placeholder-image-square.jpg');
 });
 
+document.addEventListener('click', function (event) {
+  if (event.target.nodeName.toLowerCase() === 'a') {
+    viewSwapper(event.target.dataset.view);
+  }
+});
+
 function profileRender(dataProfile) {
   var $mainDiv = document.createElement('div');
   var $header = document.createElement('h1');
@@ -43,11 +49,15 @@ function profileRender(dataProfile) {
   $locationIcon.className = 'fas fa-map-marker-alt';
   var $bio = document.createElement('p');
   $bio.textContent = dataProfile.bio;
+  var $editLink = document.createElement('a');
+  $editLink.setAttribute('href', '#');
+  $editLink.setAttribute('data-view', 'edit-profile');
+  $editLink.textContent = 'EDIT';
 
   $mainDiv.append($header, $row);
   $row.append($imgContainer, $textContainer);
   $imgContainer.appendChild($newAvatar);
-  $textContainer.append($usernameHeader, $locationHeader, $bio);
+  $textContainer.append($usernameHeader, $locationHeader, $bio, $editLink);
   $usernameHeader.append($personIconSpan, dataProfile.username);
   $personIconSpan.appendChild($personIcon);
   $locationHeader.append($locationIconSpan, dataProfile.location);
