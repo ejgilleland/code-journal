@@ -66,6 +66,11 @@ function viewSwapper(dataView) {
     if ($containerList[i].dataset.view === 'view-profile') {
       $containerList[i].innerHTML = '';
       $containerList[i].appendChild((profileRender(data.profile)));
+    } else if ($containerList[i].dataset.view === 'edit-profile' && !!data.profile.username) {
+      for (const property in data.profile) {
+        $profileForm.elements[property].value = data.profile[property];
+        $avatarImg.setAttribute('src', data.profile.avatarUrl);
+      }
     }
   }
 }
