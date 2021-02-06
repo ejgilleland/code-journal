@@ -19,6 +19,15 @@ $profileForm.addEventListener('submit', function (event) {
   $avatarImg.setAttribute('src', './images/placeholder-image-square.jpg');
 });
 
+document.addEventListener('click', function (event) {
+  if (event.target.nodeName.toLowerCase() === 'a') {
+    if ((event.target.dataset.view === 'view-profile' && data.profile.username) ||
+      event.target.dataset.view === 'edit-profile') {
+      viewSwapper(event.target.dataset.view);
+    }
+  }
+});
+
 function profileRender(dataProfile) {
   var $mainDiv = document.createElement('div');
   var $header = document.createElement('h1');
@@ -43,11 +52,16 @@ function profileRender(dataProfile) {
   $locationIcon.className = 'fas fa-map-marker-alt';
   var $bio = document.createElement('p');
   $bio.textContent = dataProfile.bio;
+  var $editLink = document.createElement('a');
+  $editLink.setAttribute('href', '#');
+  $editLink.setAttribute('data-view', 'edit-profile');
+  $editLink.className = 'edit';
+  $editLink.textContent = 'EDIT';
 
   $mainDiv.append($header, $row);
   $row.append($imgContainer, $textContainer);
   $imgContainer.appendChild($newAvatar);
-  $textContainer.append($usernameHeader, $locationHeader, $bio);
+  $textContainer.append($usernameHeader, $locationHeader, $bio, $editLink);
   $usernameHeader.append($personIconSpan, dataProfile.username);
   $personIconSpan.appendChild($personIcon);
   $locationHeader.append($locationIconSpan, dataProfile.location);
@@ -66,6 +80,11 @@ function viewSwapper(dataView) {
     if ($containerList[i].dataset.view === 'view-profile') {
       $containerList[i].innerHTML = '';
       $containerList[i].appendChild((profileRender(data.profile)));
+    } else if ($containerList[i].dataset.view === 'edit-profile' && !!data.profile.username) {
+      for (const property in data.profile) {
+        $profileForm.elements[property].value = data.profile[property];
+        $avatarImg.setAttribute('src', data.profile.avatarUrl);
+      }
     }
   }
 }
