@@ -71,3 +71,9 @@ input {
   vertical-align: middle;
   font-size: 2rem;
 }
+
+.entries-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

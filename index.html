@@ -28,7 +28,7 @@
       <h2>Edit Profile</h2>
       <form class="row" id="profile">
         <div class="column-half image-container">
-          <img src="images/placeholder-image-square.jpg">
+          <img id="avatar-image" src="images/placeholder-image-square.jpg">
         </div>
         <div class="column-half">
           <label for="avatar">
@@ -60,12 +60,17 @@
       </form>
     </div>
     <div class="container hidden" data-view="view-profile"></div>
-    <div class="container" data-view="entries"></div>
+    <div class="container" data-view="entries">
+      <div class="entries-header">
+        <h2>New Entry</h2>
+        <a href="#" class="edit" data-view="create-entry">NEW</a>
+      </div>
+    </div>
     <div class="container" data-view="create-entry">
       <h2>New Entry</h2>
       <form class="row" id="new-entry">
         <div class="column-half image-container">
-          <img src="images/placeholder-image-square.jpg">
+          <img id="entry-image" src="images/placeholder-image-square.jpg">
         </div>
         <div class="column-half">
           <label for="photoUrl">
