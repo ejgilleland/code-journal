@@ -61,7 +61,33 @@
     </div>
     <div class="container hidden" data-view="view-profile"></div>
     <div class="container" data-view="entries"></div>
-    <div class="container" data-view="create-entry"></div>
+    <div class="container" data-view="create-entry">
+      <h2>New Entry</h2>
+      <form class="row" id="new-entry">
+        <div class="column-half image-container">
+          <img src="images/placeholder-image-square.jpg">
+        </div>
+        <div class="column-half">
+          <label for="photoUrl">
+            <p>Image URL</p>
+          </label>
+          <input type="url" name="photoUrl" id="photoUrl" required>
+          <label for="title">
+            <p>Title</p>
+          </label>
+          <input type="text" name="title" id="title" required>
+        </div>
+        <div class="column-full">
+          <label for="notes">
+            <p>Notes</p>
+          </label>
+          <textarea name="notes" id="notes" rows="4" required></textarea>
+        </div>
+        <div class="column-full button-container">
+          <button type="submit" form="new-entry">SAVE</button>
+        </div>
+      </form>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
