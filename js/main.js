@@ -22,6 +22,7 @@ $profileForm.addEventListener('submit', function (event) {
 document.addEventListener('click', function (event) {
   if (event.target.nodeName.toLowerCase() === 'a') {
     if ((event.target.dataset.view === 'view-profile' && data.profile.username) ||
+      (event.target.dataset.view === 'entries' && data.profile.username) ||
       event.target.dataset.view === 'edit-profile') {
       viewSwapper(event.target.dataset.view);
     }
