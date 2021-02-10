@@ -2,8 +2,9 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-h1,
-h2 {
+h2,
+h3,
+h4 {
   font-family: 'Inter', sans-serif;
   letter-spacing: 0.05rem;
 }
@@ -11,6 +12,10 @@ h2 {
 header {
   color: whitesmoke;
   background-color: #5a2328;
+}
+
+.navbar {
+  display: flex;
 }
 
 .image-container > img {
@@ -61,4 +66,10 @@ input {
   width: 2.5rem;
   vertical-align: middle;
   font-size: 2rem;
+}
+
+.entries-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

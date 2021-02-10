@@ -1,10 +1,18 @@
 var $profileForm = document.getElementById('profile');
-var $avatarImg = document.querySelector('img');
+var $avatarImg = document.getElementById('avatar-image');
 var $containerList = document.querySelectorAll('.container');
+var $entryForm = document.getElementById('new-entry');
+var $entryImg = document.getElementById('entry-image');
 
 $profileForm.addEventListener('input', function (event) {
   if (event.target.id === 'avatar') {
-    document.querySelector('img').setAttribute('src', event.target.value);
+    $avatarImg.setAttribute('src', event.target.value);
+  }
+});
+
+$entryForm.addEventListener('input', function (event) {
+  if (event.target.id === 'photoUrl') {
+    $entryImg.setAttribute('src', event.target.value);
   }
 });
 
@@ -19,9 +27,24 @@ $profileForm.addEventListener('submit', function (event) {
   $avatarImg.setAttribute('src', './images/placeholder-image-square.jpg');
 });
 
+$entryForm.addEventListener('submit', function (event) {
+  event.preventDefault();
+  var entry = { photoUrl: null, title: null, notes: null };
+  for (const property in entry) {
+    entry[property] = $entryForm.elements[property].value;
+  }
+  data.entries.unshift(entry);
+  localStorage.setItem('data-profile', JSON.stringify(data));
+  $entryForm.reset();
+  $entryImg.setAttribute('src', './images/placeholder-image-square.jpg');
+  viewSwapper('entries');
+});
+
 document.addEventListener('click', function (event) {
   if (event.target.nodeName.toLowerCase() === 'a') {
     if ((event.target.dataset.view === 'view-profile' && data.profile.username) ||
+      (event.target.dataset.view === 'entries' && data.profile.username) ||
+      (event.target.dataset.view === 'create-entry' && data.profile.username) ||
       event.target.dataset.view === 'edit-profile') {
       viewSwapper(event.target.dataset.view);
     }
