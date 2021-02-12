@@ -128,3 +128,23 @@ document.addEventListener('DOMContentLoaded', function (event) {
     }
   } else { viewSwapper('view-profile'); }
 });
+
+function journalBuilder (entry) {
+  var $postContainer = document.createElement('li');
+  $postContainer.className = 'row';
+  var $postImgContainer = document.createElement('div');
+  $postImgContainer.className = 'column-half image-container';
+  var $postImg = document.createElement('img');
+  $postImg.setAttribute('src', entry.photoUrl);
+  var $postTextContainer = document.createElement('div');
+  $postTextContainer.className = 'column-half';
+  var $postHeader = document.createElement('h4');
+  $postHeader.textContent = entry.title;
+  var $postNotes = document.createElement('p');
+  $postNotes.textContent = entry.notes;
+
+  $postContainer.append($postImgContainer, $postTextContainer);
+  $postImgContainer.appendChild($postImg);
+  $postTextContainer.append($postHeader, $postNotes);
+  return $postContainer;
+}
