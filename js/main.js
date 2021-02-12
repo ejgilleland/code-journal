@@ -35,6 +35,7 @@ $entryForm.addEventListener('submit', function (event) {
     entry[property] = $entryForm.elements[property].value;
   }
   data.entries.unshift(entry);
+  $entryList.prepend(journalBuilder(data.entries[0]));
   localStorage.setItem('data-profile', JSON.stringify(data));
   $entryForm.reset();
   $entryImg.setAttribute('src', './images/placeholder-image-square.jpg');
