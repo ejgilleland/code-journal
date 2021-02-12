@@ -3,6 +3,7 @@ var $avatarImg = document.getElementById('avatar-image');
 var $containerList = document.querySelectorAll('.container');
 var $entryForm = document.getElementById('new-entry');
 var $entryImg = document.getElementById('entry-image');
+var $entryList = document.querySelector('ol');
 
 $profileForm.addEventListener('input', function (event) {
   if (event.target.id === 'avatar') {
@@ -117,6 +118,9 @@ document.addEventListener('DOMContentLoaded', function (event) {
     var localProfileJSON = localStorage.getItem('data-profile');
     var localProfile = JSON.parse(localProfileJSON);
     data = localProfile;
+    for (let i = 0; i < data.entries.length; i++) {
+      $entryList.appendChild(journalBuilder(data.entries[i]));
+    }
   }
   if (!data.profile.username) {
     for (let i = 0; i < $containerList.length; i++) {
@@ -129,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
   } else { viewSwapper('view-profile'); }
 });
 
-function journalBuilder (entry) {
+function journalBuilder(entry) {
   var $postContainer = document.createElement('li');
   $postContainer.className = 'row';
   var $postImgContainer = document.createElement('div');
