@@ -3,6 +3,7 @@ var $avatarImg = document.getElementById('avatar-image');
 var $containerList = document.querySelectorAll('.container');
 var $entryForm = document.getElementById('new-entry');
 var $entryImg = document.getElementById('entry-image');
+var $entryList = document.querySelector('ol');
 
 $profileForm.addEventListener('input', function (event) {
   if (event.target.id === 'avatar') {
@@ -34,6 +35,7 @@ $entryForm.addEventListener('submit', function (event) {
     entry[property] = $entryForm.elements[property].value;
   }
   data.entries.unshift(entry);
+  $entryList.prepend(journalBuilder(data.entries[0]));
   localStorage.setItem('data-profile', JSON.stringify(data));
   $entryForm.reset();
   $entryImg.setAttribute('src', './images/placeholder-image-square.jpg');
@@ -117,6 +119,9 @@ document.addEventListener('DOMContentLoaded', function (event) {
     var localProfileJSON = localStorage.getItem('data-profile');
     var localProfile = JSON.parse(localProfileJSON);
     data = localProfile;
+    for (let i = 0; i < data.entries.length; i++) {
+      $entryList.appendChild(journalBuilder(data.entries[i]));
+    }
   }
   if (!data.profile.username) {
     for (let i = 0; i < $containerList.length; i++) {
@@ -128,3 +133,23 @@ document.addEventListener('DOMContentLoaded', function (event) {
     }
   } else { viewSwapper('view-profile'); }
 });
+
+function journalBuilder(entry) {
+  var $postContainer = document.createElement('li');
+  $postContainer.className = 'row';
+  var $postImgContainer = document.createElement('div');
+  $postImgContainer.className = 'column-half image-container';
+  var $postImg = document.createElement('img');
+  $postImg.setAttribute('src', entry.photoUrl);
+  var $postTextContainer = document.createElement('div');
+  $postTextContainer.className = 'column-half';
+  var $postHeader = document.createElement('h4');
+  $postHeader.textContent = entry.title;
+  var $postNotes = document.createElement('p');
+  $postNotes.textContent = entry.notes;
+
+  $postContainer.append($postImgContainer, $postTextContainer);
+  $postImgContainer.appendChild($postImg);
+  $postTextContainer.append($postHeader, $postNotes);
+  return $postContainer;
+}
