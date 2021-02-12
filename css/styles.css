@@ -2,6 +2,10 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+html {
+  overflow-y: scroll;
+}
+
 h2,
 h3,
 h4 {
@@ -72,4 +76,14 @@ input {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+ol {
+  list-style: none;
+  margin-top: 0;
+  padding: 0;
+}
+
+li {
+  padding-bottom: 4rem;
 }
