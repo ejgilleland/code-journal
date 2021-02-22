@@ -4,6 +4,7 @@ var $containerList = document.querySelectorAll('.container');
 var $entryForm = document.getElementById('new-entry');
 var $entryImg = document.getElementById('entry-image');
 var $entryList = document.querySelector('ol');
+var $deleteModal = document.querySelector('.confirm');
 
 $profileForm.addEventListener('input', function (event) {
   if (event.target.id === 'avatar') {
@@ -34,6 +35,7 @@ $entryForm.addEventListener('submit', function (event) {
   for (const property in entry) {
     entry[property] = $entryForm.elements[property].value;
   }
+  entry.entryDate = Date.now();
   data.entries.unshift(entry);
   $entryList.prepend(journalBuilder(data.entries[0]));
   localStorage.setItem('data-profile', JSON.stringify(data));
@@ -49,6 +51,23 @@ document.addEventListener('click', function (event) {
       (event.target.dataset.view === 'create-entry' && data.profile.username) ||
       event.target.dataset.view === 'edit-profile') {
       viewSwapper(event.target.dataset.view);
+    } else if (event.target.className === 'delete') {
+      $deleteModal.className = 'confirm';
+      $deleteModal.dataset.entryDate = event.target.closest('li').dataset.entryDate;
+    } else if (event.target.className === 'del-yes') {
+      document.querySelector(`li[data-entry-date="${$deleteModal.dataset.entryDate}"]`).remove();
+      for (let i = 0; i < data.entries.length; i++) {
+        if (parseInt($deleteModal.dataset.entryDate, 10) === data.entries[i].entryDate) {
+          data.entries.splice(i, 1);
+          break;
+        }
+      }
+      $deleteModal.dataset.entryDate = null;
+      $deleteModal.className = 'confirm hidden';
+      localStorage.setItem('data-profile', JSON.stringify(data));
+    } else if (event.target.className === 'del-no') {
+      $deleteModal.dataset.entryDate = null;
+      $deleteModal.className = 'confirm hidden';
     }
   }
 });
@@ -137,6 +156,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 function journalBuilder(entry) {
   var $postContainer = document.createElement('li');
   $postContainer.className = 'row';
+  $postContainer.setAttribute('data-entry-date', entry.entryDate);
   var $postImgContainer = document.createElement('div');
   $postImgContainer.className = 'column-half image-container';
   var $postImg = document.createElement('img');
@@ -147,9 +167,19 @@ function journalBuilder(entry) {
   $postHeader.textContent = entry.title;
   var $postNotes = document.createElement('p');
   $postNotes.textContent = entry.notes;
+  var $footer = document.createElement('div');
+  $footer.className = 'column-full';
+  var $delete = document.createElement('a');
+  $delete.textContent = 'Delete';
+  $delete.className = 'delete';
 
-  $postContainer.append($postImgContainer, $postTextContainer);
+  $postContainer.append($postImgContainer, $postTextContainer, $footer);
   $postImgContainer.appendChild($postImg);
   $postTextContainer.append($postHeader, $postNotes);
+  $footer.appendChild($delete);
   return $postContainer;
 }
+
+window.addEventListener('beforeunload', function (event) {
+  localStorage.setItem('data-profile', JSON.stringify(data));
+});

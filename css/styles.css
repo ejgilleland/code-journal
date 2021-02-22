@@ -35,7 +35,10 @@ header {
 }
 
 button,
-.edit {
+.edit,
+.delete,
+.del-yes,
+.del-no {
   margin: 1.5rem 0;
   font: inherit;
   padding: 0.5rem 1.5rem;
@@ -47,6 +50,10 @@ a {
   display: inline-block;
   text-decoration: none;
   color: inherit;
+}
+
+a:hover {
+  cursor: pointer;
 }
 
 button:hover {
@@ -86,4 +93,45 @@ ol {
 
 li {
   padding-bottom: 4rem;
+}
+
+.confirm {
+  margin: none;
+  background-color: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dialog {
+  padding: 1.5rem;
+  border: 3px solid black;
+  border-radius: 10px;
+  box-shadow: 3px 3px 2px black;
+  margin: auto;
+  text-align: center;
+  background-color: white;
+}
+
+.dialog > h3 {
+  margin-top: 0;
+}
+
+.del-yes {
+  margin: 0 1rem 0 0;
+  color: white;
+  background-color: rgb(50, 100, 194);
+}
+
+.del-no {
+  margin: 0;
+  color: white;
+  background-color: rgb(228, 47, 47);
 }
